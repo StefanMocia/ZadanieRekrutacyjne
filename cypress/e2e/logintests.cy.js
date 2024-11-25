@@ -9,10 +9,10 @@ describe('Test logowania', () => {
     // do poprawy ostatni wiersz testu - sprawdzamy bo złym widoku
     it('Powinno zalogować użytkownika z poprawnymi danymi', () => {
         // Wprowadzenie poprawnego e-maila
-        cy.get('input[name="email"]').type('stefanmocia.mocia@gmail.com');
+        cy.get('input[name="email"]').type(users.validuser.username);
 
         // Wprowadzenie poprawnego hasła
-        cy.get('input[name="passwordLogin"]').type('ZadanieRekrutacyjne987!@#');
+        cy.get('input[name="passwordLogin"]').type(users.validuser.password);
 
         // Kliknięcie przycisku logowania
         cy.get('[data-test="loginButton"]').click();
@@ -26,10 +26,10 @@ describe('Test logowania', () => {
 
     it('Powinno pokazać błąd przy niepoprawnych danych logowania', () => {
         // Wprowadzenie niepoprawnego e-maila
-        cy.get('input[name="email"]').type('niepoprawny@wp.com');
+        cy.get('input[name="email"]').type(users.invalidUser.username);
 
         // Wprowadzenie niepoprawnego hasła
-        cy.get('input[name="passwordLogin"]').type('niepoprawny');
+        cy.get('input[name="passwordLogin"]').type(users.invalidUser.password);
 
         // Kliknięcie przycisku logowania
         cy.get('[data-test="loginButton"]').click();

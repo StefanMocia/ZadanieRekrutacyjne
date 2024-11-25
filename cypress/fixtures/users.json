@@ -1,0 +1,14 @@
+{
+  "validUser": {
+    "username": "stefanmocia.mocia@gmail.com",
+    "password": "ZadanieRekrutacyjne987!@#"
+  },
+  "invalidUser": {
+    "username": "niepoprawny@wp.com",
+    "password": "niepoprawny"
+  },
+  "worker": {
+    "name": "Jan",
+    "surname": "Kowalski"
+  }
+}
