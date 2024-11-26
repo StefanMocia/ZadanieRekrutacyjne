@@ -17,7 +17,9 @@ describe('Test dodawania nowego pracownika', () => {
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
-        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click();
+
+        //Wchodzenie w element z menu (Niedopasowanie aplikacji pod testy - próba .realHover() nie działa ze względu na aktualność przeglądarek)
+        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
         //Sprawdza widoczność okna nowego pracownika
         cy.get('[data-test="showAddEmployeeModal"]').click();
@@ -32,7 +34,7 @@ describe('Test dodawania nowego pracownika', () => {
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
-        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click();
+        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
         //Sprawdza widoczność okna nowego pracownika
         cy.get('[data-test="showAddEmployeeModal"]').click();
@@ -51,7 +53,7 @@ describe('Test dodawania nowego pracownika', () => {
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
-        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click();
+        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
         //Sprawdza widoczność okna nowego pracownika
         cy.get('[data-test="showAddEmployeeModal"]').click();
@@ -71,7 +73,7 @@ describe('Test dodawania nowego pracownika', () => {
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
-        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click();
+        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
         //Sprawdza widoczność okna nowego pracownika
         cy.get('[data-test="showAddEmployeeModal"]').click();
@@ -96,7 +98,7 @@ describe('Test dodawania nowego pracownika', () => {
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
-        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click();
+        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
         //Sprawdza widoczność okna nowego pracownika
         cy.get('[data-test="showAddEmployeeModal"]').click();
@@ -106,8 +108,8 @@ describe('Test dodawania nowego pracownika', () => {
         cy.get('[data-test="contractsTab"]').click();
 
         //Wybranie pierwszego stanowiska z listy
-        cy.get('.mdMultiSelect__dropdown__item').click();
         cy.get('[data-test="jobTitlesSelect"]').click();
+        cy.get('.mdMultiSelect__dropdown__item').click();
         cy.get('.selectedOptions__item').should('exist')
     });
 
@@ -119,7 +121,7 @@ describe('Test dodawania nowego pracownika', () => {
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
-        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click();
+        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
         //Sprawdza widoczność okna nowego pracownika
         cy.get('[data-test="showAddEmployeeModal"]').click();
@@ -145,7 +147,7 @@ describe('Test dodawania nowego pracownika', () => {
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
-        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click();
+        cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
         //Sprawdza widoczność okna nowego pracownika
         cy.get('[data-test="showAddEmployeeModal"]').click();
@@ -170,7 +172,12 @@ describe('Test dodawania nowego pracownika', () => {
         //Zapisuje nowego pracownika
         cy.get('[data-test="confirmButton"]').click();
         cy.fixture('users').then((users) => {
-            cy.get(':nth-child(2)').eq(users.worker.name & users.worker.surname)
+            cy.get('#search-word')
+                .click()
+                .type((users.worker.name + " " + users.worker.surname));
+
+            //Weryfikuje czy pracownik dodał dodany do tabeli pracowników
+            cy.get('.kadroGrid__contentContainer').contains(users.worker.name + " " + users.worker.surname).should('exist');
         });
     });
 });

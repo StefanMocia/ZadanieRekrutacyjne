@@ -6,31 +6,36 @@ describe('Test logowania', () => {
     });
 
 
-    // do poprawy ostatni wiersz testu - sprawdzamy bo złym widoku
+
     it('Powinno zalogować użytkownika z poprawnymi danymi', () => {
-        // Wprowadzenie poprawnego e-maila
-        cy.get('input[name="email"]').type(users.validuser.username);
+        cy.fixture('users').then((users) => {
+            // Wprowadzenie poprawnego e-maila
+            cy.get('input[name="email"]').type(users.validUser.username);
 
-        // Wprowadzenie poprawnego hasła
-        cy.get('input[name="passwordLogin"]').type(users.validuser.password);
-
+            // Wprowadzenie poprawnego hasła
+            cy.get('input[name="passwordLogin"]').type(users.validUser.password);
+        });
         // Kliknięcie przycisku logowania
         cy.get('[data-test="loginButton"]').click();
 
         // Oczekiwanie, że użytkownik zostanie przekierowany na stronę główną
         cy.url({ timeout: 10000 }).should('eq', 'https://app.kadromierz.pl/trial');
 
-        // // Sprawdzenie, czy na stronie głównej pojawia się element wskazujący na zalogowanie
-        cy.get('.k-sideBar').should('exist');
+        //Obsługa niewychwyconych wątków
+        cy.setupAndWaitLoginRequests();
+
+        // Sprawdzenie, czy na stronie głównej pojawia się element wskazujący na zalogowanie
+        cy.get('.dashboardTopBar').should('exist');
     });
 
     it('Powinno pokazać błąd przy niepoprawnych danych logowania', () => {
-        // Wprowadzenie niepoprawnego e-maila
-        cy.get('input[name="email"]').type(users.invalidUser.username);
+        cy.fixture('users').then((users) => {
+            // Wprowadzenie niepoprawnego e-maila
+            cy.get('input[name="email"]').type(users.invalidUser.username);
 
-        // Wprowadzenie niepoprawnego hasła
-        cy.get('input[name="passwordLogin"]').type(users.invalidUser.password);
-
+            // Wprowadzenie niepoprawnego hasła
+            cy.get('input[name="passwordLogin"]').type(users.invalidUser.password);
+        });
         // Kliknięcie przycisku logowania
         cy.get('[data-test="loginButton"]').click();
 
@@ -39,7 +44,7 @@ describe('Test logowania', () => {
     });
 
 
-    //do poprawy (w cypress prezentujemy pop-up, w realizach nie ma takiego przypadku. Do zbadania)
+    // Błąd dewelopementu - sprawdzić widoki, dlaczego wyświetla się awaria systemu?
     it('Powinno wymagać wprowadzenia danych logowania', () => {
         // Kliknięcie przycisku logowania bez wypełniania pól
         cy.get('[data-test="loginButton"]').click();
