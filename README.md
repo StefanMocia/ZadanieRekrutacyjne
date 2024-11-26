@@ -1,4 +1,4 @@
-#Zadanie Rekrutacyjne - Testy Automatyczne Aplikacji "Kadromierz"
+Zadanie Rekrutacyjne - Testy Automatyczne Aplikacji "Kadromierz"
 
 W ramach zadania rekrutacyjnego wykonano trzy testy automatyczne dla aplikacji "Kadromierz", obejmujące następujące scenariusze:
 
