@@ -1,4 +1,4 @@
-Zadanie Rekrutacyjne - Testy Automatyczne Aplikacji "Kadromierz"
+## **Zadanie Rekrutacyjne - Testy Automatyczne Aplikacji "Kadromierz"**
 
 W ramach zadania rekrutacyjnego wykonano trzy testy automatyczne dla aplikacji "Kadromierz", obejmujące następujące scenariusze:
 
@@ -22,35 +22,47 @@ Struktura projektu:
 
 
 
-Instrukcja uruchomienia testów:
+## **Instrukcja uruchomienia testów Cypress**
 
-1.Instalacja Node.js:
-https://nodejs.org/
+1. **Instalacja Node.js**  
+   Zainstaluj **Node.js** ze strony:  
+   [https://nodejs.org/](https://nodejs.org/)
 
-2.Inicjalizacja projektu w terminalu :
-npm init
+2. **Inicjalizacja projektu w terminalu**  
+   W terminalu przejdź do folderu, w którym chcesz stworzyć projekt, i uruchom:  
+   ```bash
+   npm init
+   ```
 
-3.Instalacja Cypress:
-npm install cypress
+3. **Instalacja Cypress**  
+   Zainstaluj **Cypress** jako zależność deweloperską w projekcie:  
+   ```bash
+   npm install cypress
+   ```
 
-4.Zainstalowanie 
-VScode - https://code.visualstudio.com/
+4. **Zainstalowanie Visual Studio Code**  
+   Pobierz i zainstaluj **Visual Studio Code** (VSCode):  
+   [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
-5.Zainstalowanie Extensions w VScode:
--Cypress Snippets
--JavaScirpt  (es6)
+5. **Zainstalowanie rozszerzeń w VSCode**  
+   Zainstaluj poniższe rozszerzenia w VSCode:
+   - **Cypress Snippets**
+   - **JavaScript (ES6)**
 
-6.Uruchomienie Cypress:
-npx cypress open
+6. **Uruchomienie Cypress**  
+   W terminalu uruchom Cypress za pomocą komendy:  
+   ```bash
+   npx cypress open
+   ```
 
-
-
+---
 
 Zachęcam do zapoznania się z projektem i pozostawienia uwag. Dziękuję!
 
-
-Wszystkiego dobrego!
+**Wszystkiego dobrego!**  
 Stefan Mocia
+
+---
 
 
 
