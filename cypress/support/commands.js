@@ -1,4 +1,4 @@
-import 'cypress-real-events';
+// import 'cypress-real-events';
 
 Cypress.Commands.add('login', (username, password) => {
   cy.get('input[name="email"]').type(username);
@@ -9,26 +9,26 @@ Cypress.Commands.add('login', (username, password) => {
 
 
 Cypress.Commands.add('setupAndWaitLoginRequests', () => {
-  // Obsługuje nieuchwycone wyjątki
+  // Handles uncaught exceptions
   cy.on('uncaught:exception', (err, runnable, promise) => {
     if (promise) {
-      return false; // Ignoruj błąd, jeśli jest to promise
+      return false; // Ignore the error if it's a promise
     }
   });
 
-  // Przed testem dodaj interceptor dla wszystkich requestów
+  // Add interceptor for all requests before the test
   cy.intercept('**/*').as('allRequests');
 
-  // Poczekaj na zakończenie wszystkich requestów
+  // Wait for all requests to complete
   cy.wait('@allRequests', { timeout: 100000 });
 
-  // Kontynuujemy test po całkowitym zniknięciu loadera
+  // Continue the test after the loader completely disappears
   cy.get('.dashboardTopBar').should('be.visible');
 
-  // Przechwytujemy request do milestones
+  // Intercept request to milestones
   cy.intercept('GET', '**/api.kadromierz.pl/milestones').as('milestones');
 
-  // Czekamy na odpowiedź z tym konkretnym statusem
+  // Wait for the response with this specific status
   cy.wait('@milestones')
     .its('response.statusCode')
     .should('eq', 304);
@@ -36,15 +36,3 @@ Cypress.Commands.add('setupAndWaitLoginRequests', () => {
 
 
 
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })

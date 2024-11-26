@@ -1,6 +1,6 @@
-describe('Test dodawania nowego pracownika', () => {
+describe('Test adding a new employee', () => {
     beforeEach(() => {
-        // Odwiedź stronę logowania przed każdym testem
+        // Visit the login page before each test
         cy.visit('https://app.kadromierz.pl/');
         cy.get('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll').click();
         cy.fixture('users').then((users) => {
@@ -8,130 +8,130 @@ describe('Test dodawania nowego pracownika', () => {
         });
     });
 
-    it('Powinno sprawdzać wyświetlanie okna dodawania pracownika', () => {
+    it('Should check the display of the add employee window', () => {
 
-        //Obsługa niewychwyconych wątków
+        // Handle uncaught threads
         cy.setupAndWaitLoginRequests();
 
-        //Dopiero po otrzymaniu odpowiedzi wykonujemy kolejne kroki
+        // Only after receiving a response do we perform the next steps
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
 
-        //Wchodzenie w element z menu (Niedopasowanie aplikacji pod testy - próba .realHover() nie działa ze względu na aktualność przeglądarek)
+        // Entering the menu element (Application mismatch for tests - attempt to .realHover() doesn't work due to browser currency)
         cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
-        //Sprawdza widoczność okna nowego pracownika
+        // Checks the visibility of the new employee window
         cy.get('[data-test="showAddEmployeeModal"]').click();
         cy.get('.mdModal__container').should('be.visible');
     });
 
-    it('Powinno wymagać wprowadzenia danych pracownika', () => {
-        //Obsługa niewychwyconych wątków
+    it('Should require employee data input', () => {
+        // Handle uncaught threads
         cy.setupAndWaitLoginRequests();
 
-        //Dopiero po otrzymaniu odpowiedzi wykonujemy kolejne kroki
+        // Only after receiving a response do we perform the next steps
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
         cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
-        //Sprawdza widoczność okna nowego pracownika
+        // Checks the visibility of the new employee window
         cy.get('[data-test="showAddEmployeeModal"]').click();
         cy.get('.mdModal__container').should('be.visible');
 
-        //Sprawdza przycisk i wymagania walidacyjne
+        // Checks the button and validation requirements
         cy.get('[data-test="confirmButton"]').click();
         cy.get('[data-test="errorMessage"]').should('contain.text', 'Uzupełnij brakujące dane w sekcjach profilu pracownika oznaczonych kolorem czerwonym.');
     });
 
-    it('Powinno dodawać wszystkie lokalizację pracownika - zakładka "Lokalizacje"', () => {
-        //Obsługa niewychwyconych wątków
+    it('Should add all employee locations - "Locations" tab', () => {
+        // Handle uncaught threads
         cy.setupAndWaitLoginRequests();
 
-        //Dopiero po otrzymaniu odpowiedzi wykonujemy kolejne kroki
+        // Only after receiving a response do we perform the next steps
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
         cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
-        //Sprawdza widoczność okna nowego pracownika
+        // Checks the visibility of the new employee window
         cy.get('[data-test="showAddEmployeeModal"]').click();
         cy.get('.mdModal__container').should('be.visible');
 
-        //Przejście do zakładki lokalizacja i wybranie wszystkich
+        // Go to the location tab and select all
         cy.get('[data-test="locationsTab"]').click();
         cy.get('[data-test="addAllLocations"]').click();
         cy.get('.selectedOptions__item').should('exist');
     });
 
-    it('Powinno usuwać wszystkie lokalizację pracownika - zakładka "Lokalizacje"', () => {
-        //Obsługa niewychwyconych wątków
+    it('Should remove all employee locations - "Locations" tab', () => {
+        // Handle uncaught threads
         cy.setupAndWaitLoginRequests();
 
-        //Dopiero po otrzymaniu odpowiedzi wykonujemy kolejne kroki
+        // Only after receiving a response do we perform the next steps
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
         cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
-        //Sprawdza widoczność okna nowego pracownika
+        // Checks the visibility of the new employee window
         cy.get('[data-test="showAddEmployeeModal"]').click();
         cy.get('.mdModal__container').should('be.visible');
 
-        //Przejście do zakładki lokalizacja i wybranie wszystkich
+        // Go to the location tab and select all
         cy.get('[data-test="locationsTab"]').click();
         cy.get('[data-test="addAllLocations"]').click();
         cy.get('.selectedOptions__item').should('exist');
 
-        //Przejście do zakładki lokalizacja i usunięcie wszystkich
+        // Go to the location tab and remove all
         cy.get('[data-test="locationsTab"]').click();
         cy.get('[data-test="deleteAllLocations"]').click();
         cy.get('.selectedOptions__item').should('not.exist');
     });
 
-    it('Powinno dodawać pierwsze stanowisko z listy - zakładka "Stanowiska i stawki"', () => {
-        //Obsługa niewychwyconych wątków
+    it('Should add the first position from the list - "Positions and rates" tab', () => {
+        // Handle uncaught threads
         cy.setupAndWaitLoginRequests();
 
-        //Dopiero po otrzymaniu odpowiedzi wykonujemy kolejne kroki
+        // Only after receiving a response do we perform the next steps
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
         cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
-        //Sprawdza widoczność okna nowego pracownika
+        // Checks the visibility of the new employee window
         cy.get('[data-test="showAddEmployeeModal"]').click();
         cy.get('.mdModal__container').should('be.visible');
 
-        //Przejście do zakładki stanowiska i stawki
+        // Go to the positions and rates tab
         cy.get('[data-test="contractsTab"]').click();
 
-        //Wybranie pierwszego stanowiska z listy
+        // Select the first position from the list
         cy.get('[data-test="jobTitlesSelect"]').click();
         cy.get('.mdMultiSelect__dropdown__item').click();
         cy.get('.selectedOptions__item').should('exist')
     });
 
-    it('Powinno usuwać wybrane stanowisko - zakładka "Stanowiska i stawki"', () => {
-        //Obsługa niewychwyconych wątków
+    it('Should remove the selected position - "Positions and rates" tab', () => {
+        // Handle uncaught threads
         cy.setupAndWaitLoginRequests();
 
-        //Dopiero po otrzymaniu odpowiedzi wykonujemy kolejne kroki
+        // Only after receiving a response do we perform the next steps
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
         cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
-        //Sprawdza widoczność okna nowego pracownika
+        // Checks the visibility of the new employee window
         cy.get('[data-test="showAddEmployeeModal"]').click();
         cy.get('.mdModal__container').should('be.visible');
 
-        //Przejście do zakładki stanowiska i stawki
+        // Go to the positions and rates tab
         cy.get('[data-test="contractsTab"]').click();
         cy.get('[data-test="jobTitlesSelect"]').click();
 
-        //Dodanie wszystkich stanowisk
+        // Add all positions
         cy.get('[data-test="addAllJobTitles"]').click();
         cy.get('.selectedOptions__item').should('exist')
         cy.get('[data-test="deleteTerm-Obsługa klienta"] > .material-icons').click();
@@ -139,52 +139,46 @@ describe('Test dodawania nowego pracownika', () => {
         //
     });
 
-    it('Powinno dodać pracownika', () => {
-        //Obsługa niewychwyconych wątków
+    it('Should add an employee', () => {
+        // Handle uncaught threads
         cy.setupAndWaitLoginRequests();
 
-        //Dopiero po otrzymaniu odpowiedzi wykonujemy kolejne kroki
+        // Only after receiving a response do we perform the next steps
         cy.get('.k-sideBar')
             .should('be.visible')
             .trigger('mouseover');
         cy.get('.k-sideBar__menu > section:nth-child(2) > li:nth-child(3) > a:nth-child(1)').click({ force: true });
 
-        //Sprawdza widoczność okna nowego pracownika
+        // Checks the visibility of the new employee window
         cy.get('[data-test="showAddEmployeeModal"]').click();
         cy.get('.mdModal__container').should('be.visible');
 
-        //Uzupełnia dane w zakładce "Podstawowe"
+        // Fill in data in the "Basic" tab
         cy.fixture('users').then((users) => {
             cy.get('[data-test="name-input"]').type(users.worker.name);
             cy.get('[data-test="lastName-input"]').type(users.worker.surname);
         });
 
-        //Uzupełnia dane w zakładce "Lokalizacja"
+        // Fill in data in the "Location" tab
         cy.get('[data-test="locationsTab"]').click();
         cy.get('[data-test="addAllLocations"]').click();
         cy.get('.selectedOptions__item').should('exist');
 
-        //Uzupełnia dane w zakładce "Stanowiska i stawki"
+        // Fill in data in the "Positions and rates" tab
         cy.get('[data-test="contractsTab"]').click();
         cy.get('[data-test="addAllJobTitles"]').click();
         cy.get('.selectedOptions__item').should('exist');
 
-        //Zapisuje nowego pracownika
+        // Save the new employee
         cy.get('[data-test="confirmButton"]').click();
         cy.fixture('users').then((users) => {
-            //Wejście w input po danych nowego pracownika
+            // Enter the input for the new employee's data
             cy.get('#search-word')
                 .click()
                 .type((users.worker.name + " " + users.worker.surname));
 
-            //Weryfikuje czy pracownik dodał dodany do tabeli pracowników
+            // Verify if the employee has been added to the employee table
             cy.get('.kadroGrid__contentContainer').contains(users.worker.name + " " + users.worker.surname).should('exist');
         });
     });
 });
-
-
-
-
-
-

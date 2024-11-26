@@ -1,57 +1,56 @@
-describe('Test logowania', () => {
+describe('Login Test', () => {
     beforeEach(() => {
-        // Odwiedź stronę logowania przed każdym testem
+        // Visit the login page before each test
         cy.visit('https://app.kadromierz.pl/');
         cy.get('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll').click();
     });
 
 
-
-    it('Powinno zalogować użytkownika z poprawnymi danymi', () => {
+    it('Should log in user with correct credentials', () => {
         cy.fixture('users').then((users) => {
-            // Wprowadzenie poprawnego e-maila
+            // Enter correct email
             cy.get('input[name="email"]').type(users.validUser.username);
 
-            // Wprowadzenie poprawnego hasła
+            // Enter correct password
             cy.get('input[name="passwordLogin"]').type(users.validUser.password);
         });
-        // Kliknięcie przycisku logowania
+        // Click login button
         cy.get('[data-test="loginButton"]').click();
 
-        // Oczekiwanie, że użytkownik zostanie przekierowany na stronę główną
+        // Expect user to be redirected to the main page
         cy.url({ timeout: 10000 }).should('eq', 'https://app.kadromierz.pl/trial');
 
-        //Obsługa niewychwyconych wątków
+        // Handle uncaught threads
         cy.setupAndWaitLoginRequests();
 
-        // Sprawdzenie, czy na stronie głównej pojawia się element wskazujący na zalogowanie
+        // Check if an element indicating successful login appears on the main page
         cy.get('.dashboardTopBar').should('exist');
     });
 
-    it('Powinno pokazać błąd przy niepoprawnych danych logowania', () => {
+    it('Should show an error with incorrect login credentials', () => {
         cy.fixture('users').then((users) => {
-            // Wprowadzenie niepoprawnego e-maila
+            // Enter incorrect email
             cy.get('input[name="email"]').type(users.invalidUser.username);
 
-            // Wprowadzenie niepoprawnego hasła
+            // Enter incorrect password
             cy.get('input[name="passwordLogin"]').type(users.invalidUser.password);
         });
-        // Kliknięcie przycisku logowania
+        // Click login button
         cy.get('[data-test="loginButton"]').click();
 
-        // Sprawdzenie, czy pojawia się komunikat o błędzie
+        // Check if an error message appears
         cy.get('.top-right').should('contain.text', 'Błąd podczas logowania');
     });
 
 
-    // Błąd dewelopementu - sprawdzić widoki, dlaczego wyświetla się awaria systemu?
-    it('Powinno wymagać wprowadzenia danych logowania', () => {
-        // Kliknięcie przycisku logowania bez wypełniania pól
+    // Development error - check views, why is system failure displayed?
+    it('Should require login credentials', () => {
+        // Click login button without filling in fields
         cy.get('[data-test="loginButton"]').click();
 
-        // Sprawdzenie, czy pola e-mail i hasło wskazują na błąd
+        // Check if email and password fields indicate an error
         cy.wait(5000);
-        cy.get('input[name="email"]').siblings('.kmd-textInput__error').should('contain.text', 'Proszę podać adres email');
-        cy.get('input[name="passwordLogin"]').siblings('.kmd-textInput__error').should('contain.text', 'Proszę podać hasło');
+        cy.get('input[name="email"]').siblings('.kmd-textInput__error').should('contain.text', 'Please enter an email address');
+        cy.get('input[name="passwordLogin"]').siblings('.kmd-textInput__error').should('contain.text', 'Please enter a password');
     });
 });
