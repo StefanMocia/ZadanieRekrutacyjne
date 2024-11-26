@@ -24,23 +24,23 @@ Struktura projektu:
 
 Instrukcja uruchomienia testów:
 
-Instalacja Node.js:
+1.Instalacja Node.js:
 https://nodejs.org/
 
-Inicjalizacja projektu w terminalu :
+2.Inicjalizacja projektu w terminalu :
 npm init
 
-Instalacja Cypress:
+3.Instalacja Cypress:
 npm install cypress
 
-Zainstalowanie 
+4.Zainstalowanie 
 VScode - https://code.visualstudio.com/
 
-Zainstalowanie Extensions w VScode:
-Cypress Snippets
-JavaScirpt  (es6)
+5.Zainstalowanie Extensions w VScode:
+-Cypress Snippets
+-JavaScirpt  (es6)
 
-Uruchomienie Cypress:
+6.Uruchomienie Cypress:
 npx cypress open
 
 
