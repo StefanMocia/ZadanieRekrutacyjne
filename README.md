@@ -20,10 +20,36 @@ Struktura projektu:
     cypress/support/commands – zawiera niestandardowe komendy, które ułatwiają interakcję z aplikacją.
     cypress.config.js – zawiera konfigurację, w tym ustawienie czasu oczekiwania, które zostało zmodyfikowane, aby uwzględnić dynamiczne ładowanie elementów na stronie (co może powodować błędy, jeśli czas oczekiwania nie jest odpowiednio dopasowany).
 
+
+
+Instrukcja uruchomienia testów:
+
+Instalacja Node.js:
+https://nodejs.org/
+
+Inicjalizacja projektu w terminalu :
+npm init
+
+Instalacja Cypress:
+npm install cypress
+
+Zainstalowanie 
+VScode - https://code.visualstudio.com/
+
+Zainstalowanie Extensions w VScode:
+Cypress Snippets
+JavaScirpt  (es6)
+
+Uruchomienie Cypress:
+npx cypress open
+
+
+
+
 Zachęcam do zapoznania się z projektem i pozostawienia uwag. Dziękuję!
 
 
-Wszystkiego dobrego
+Wszystkiego dobrego!
 Stefan Mocia
 
 
