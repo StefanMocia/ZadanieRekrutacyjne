@@ -172,6 +172,7 @@ describe('Test dodawania nowego pracownika', () => {
         //Zapisuje nowego pracownika
         cy.get('[data-test="confirmButton"]').click();
         cy.fixture('users').then((users) => {
+            //Wejście w input po danych nowego pracownika
             cy.get('#search-word')
                 .click()
                 .type((users.worker.name + " " + users.worker.surname));
