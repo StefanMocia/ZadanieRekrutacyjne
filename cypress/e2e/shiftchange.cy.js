@@ -41,24 +41,23 @@ describe('Testy zmian grafiku dla wybranego pracownika', () => {
 
         //Zaznaczenie przedziału dniowego w kalendarzu
         cy.get('div:nth-child(1) > .rdrMonthName').should('be.visible').then(function checkMonth() {
-            let licznikProb = 0;
-            const maxProb = 4;
+            let repetiontime = 0;
+            const maxrep = 4;
 
-            function sprawdzMiesiac() {
-                if (licznikProb >= maxProb) return;
+            function checkMonth() {
+                if (licznikProb >= maxrep) return;
 
                 cy.get('div:nth-child(1) > .rdrMonthName').then(($month) => {
-                    const aktualnaData = $month.text();
-                    cy.log('Sprawdzam miesiąc:', aktualnaData);
+                    const actualDate = $month.text();
 
-                    if (aktualnaData !== 'wrzesień 2024') {
-                        licznikProb++;
+                    if (actualDate !== 'wrzesień 2024') {
+                        repetiontime++;
                         cy.get('.rdrPprevButton')
                             .click()
                             .then(() => {
                                 cy.get('div:nth-child(1) > .rdrMonthName')
-                                    .should('not.have.text', aktualnaData)
-                                    .then(sprawdzMiesiac);
+                                    .should('not.have.text', actualDate)
+                                    .then(checkMonth);
                             });
                     }
                 });
